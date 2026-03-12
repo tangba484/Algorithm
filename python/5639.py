@@ -1,27 +1,13 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10**8)
-l =[]
-while 1:
+a = []
+while True:
     try:
-        l.append(int(input()))
-    except:
+        x = input()
+        a.append(int(x))
+    except :
         break
 
-
-def r(l):
-    if not l:
-        return []
+print(a)
+for i in a:
     
-    root = l[0]
-    index = 1
-    n = len(l)
-    while index < n and l[index]<root:
-        index += 1
-    
-    left = r(l[1:index])
-    right = r(l[index:])
-
-    return print(root)
-
-r(l)

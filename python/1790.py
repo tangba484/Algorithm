@@ -1,35 +1,24 @@
-def get_digit_at_position(n, k):
-    # 숫자의 자릿수를 찾는 함수
-    def get_num_digits(num):
-        digits = 0
-        while num > 0:
-            digits += 1
-            num //= 10
-        return digits
+n,k = map(int,input().split())
 
-    # k번째 숫자를 찾는 함수
-    def find_kth_digit(n, k):
-        current_pos = 0  # 현재 위치
-        for num in range(1, n + 1):
-            num_digits = get_num_digits(num)
-            if current_pos + num_digits >= k:
-                # k번째 숫자를 찾음
-                position_in_num = k - current_pos
-                return int(str(num)[position_in_num - 1])
-
-            # 다음 숫자로 이동
-            current_pos += num_digits
-
-    # k번째 숫자 반환
-    if k > len(str(n * (n + 1) // 2)):
-        return -1
+a = len(str(n))
+maxL = 0
+for i in range(1,a+1):
+    if i == a:
+        maxL += (n - 10**(i-1) + 1) * a
     else:
-        return find_kth_digit(n, k)
+        maxL += 9 * (10**(i-1)) * i
 
-# 사용자 입력 받기
-n = int(input("n을 입력하세요: "))
-k = int(input("k를 입력하세요: "))
-
-# 숫자 출력
-result = get_digit_at_position(n, k)
-print("결과:", result)
+if maxL < k:
+    print(-1)
+else:
+    c = 1
+    while 1:
+        k -= 9*(10**(c-1))*c
+        if k <= 0:
+            k += 9*(10**(c-1))*c
+            break
+        c += 1
+    if k%c == 0:
+        print(str(10**(c-1) + k//c -1)[-1])
+    else:
+        print(str(10**(c-1) + k//c)[k%c-1])

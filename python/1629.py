@@ -1,12 +1,18 @@
 a,b,c = map(int,input().split())
 
-def R(a,b,c):
-    if b == 1 :
-        return a%c
+
+
+def f(a,b):
+    if b == 2:
+        return (a ** 2) %c
+    elif b == 1:
+        return a %c
     
-    ans = R(a,b//2,c)
-    if b%2 == 1:
-        return ans*ans*a%c
-    else:
-        return ans*ans%c
-print(R(a,b,c))
+
+    if b%2 == 0:
+        res = f(a,b//2)
+        return  (res%c * res%c)%c
+    elif b%2 == 1:
+        res = f(a,b//2)
+        return (res%c * res%c * a)%c
+print(f(a,b))

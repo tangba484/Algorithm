@@ -1,23 +1,26 @@
-L , C = map(int,input().split())
-d = sorted(list(input().split()))
-def check(s):
-    a = 0
-    b = 0
-    for i in range(L):
-        if s[i] in "aeiou":
-            a += 1
-        else:
-            b += 1
-        if a>=1 and b>=2:
+L,C = map(int,input().split())
+
+arr = sorted(list(input().split()))
+
+aeiou = ["a","e","i","o","u"]
+visited = [0]*(C)
+def back(lst,start):
+    leng = len(lst)
+    if leng == L:
+        aeiou_cnt = 0
+        for i in aeiou:
+            if i in lst:
+                aeiou_cnt += 1
+        if aeiou_cnt >= 1 and leng - aeiou_cnt >= 2:
+            print(*lst,sep="")
             return True
-    return False
-
-def back(s,Len,idx):
+        else:
+            return False
     
-    if Len == L and check(s):
-        print("".join(s))
-        return
-    for i in range(idx,C):
-        back(s+[d[i]],Len+1,i+1)
+    for i in range(start,C):
+        if not visited[i]:
+            visited[i] = 1
+            back(lst + [arr[i]],i + 1)
+            visited[i] = 0
 
-back([],0,0)
+back([],0)
